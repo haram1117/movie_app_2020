@@ -1,66 +1,30 @@
 import React from 'react';
-import PropTypes from "prop-types";
 
-function Food({name, picture, rating}){
-  return <div>
-    <h2>
-      I like {name}
-    </h2>
-    <h2>{rating}/5.0</h2>
-    <img src={picture}></img>
-  </div>
-}
-Food.propTypes = {
-  name: PropTypes.string.isRequired,
-  picture: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired
-};
-
-const foodILike = [
-  {
-    id:1,
-    name: "Kimchi",
-    image:
-    "https://t1.daumcdn.net/liveboard/realfood/242c32cb349f4a7fbd23a024f6d85cbe.jpg",
-    rating:5
-  },
-  {
-    id:2,
-    name: "Samgyeopsal",
-    image:
-    "https://lh3.googleusercontent.com/proxy/jlKRTaR8IDgRXN46rQB9JH67ovDdfGv9FebJcPnkoYnWkyNdvpeSl3xPJAG5sHfJH0e9pXdv0BIE6PK-MZ_j1sIdY3LKiPOFKJKT0eE_GHzHUiY90mFGe6g1x9TCL1WISkDe6bwecg",
-    rating:4
-  },
-  {
-    id:3,
-    name: "Bibimbap",
-    image:
-    "https://t1.daumcdn.net/liveboard/dailylife/9b41085280b04ddaa1092dc61d054c70.JPG",
-    rating:4.9
-  },
-  {
-    id:4,
-    name: "Doncasu",
-    image:
-    "https://freshdon.com/wp-content/uploads/2017/09/K-006.jpg",
-    rating:3
-  },
-  {
-    id:5,
-    name: "KimBap",
-    image:
-    "https://recipe1.ezmember.co.kr/cache/recipe/2016/11/28/6bc7f3c7a3fdf517e6943dd14a9b3df01.jpg",
-    rating:5
+class App extends React.Component{
+  state={
+    count: 0
+  };
+  add=()=>{
+    this.setState(current =>({count: current.count++}));
+  };
+  minus=()=>{
+    this.setState(current =>({count: current.count--}));//setState에서 this.state등을 하는 것은 좋지 않음 current쓰는 방식 알기, setState할때마다 render()함수가 다시 실행
+  };
+  componentDidMount(){
+    console.log("Component rendered");
   }
-]
+  componentDidUpdate(){
+    console.log("Component Updated");
+  }
+  render(){
+    console.log("I'm rendering");
+    return (<div>
+      <h1>The number is: {this.state.count}</h1>
+      <button onClick={this.add}>Add</button>
+      <button onClick={this.minus}>Minus</button>
+      </div>)
+  }
 
-function App() {
-  return (
-    <div className="App">
-      {foodILike.map(dish => <Food key={dish.id} name={dish.name} picture={dish.image} rating ={dish.rating} />)}
-    </div>
-  );
 }
-
 
 export default App;
